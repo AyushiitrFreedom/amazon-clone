@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "esModuleInterop": true,
+    "lib": [
+      "es2020"
+    ],
+    "module": "es2022",
+    "preserveConstEnums": true,
+    "moduleResolution": "node",
+    "strictNullChecks": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "sourceMap": true,
+    "target": "es2022",
+    "types": [
+      "node"
+    ],
+    "outDir": "dist",
+    "useUnknownInCatchVariables": false
+  },
+  "ts-node": {
+    "esm": true,
+    "experimentalSpecifierResolution": "node",
+  },
+  "include": [
+    "index.ts",
+    "./src/*"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
