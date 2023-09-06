@@ -4,7 +4,7 @@ import passport from 'passport';
 import { get } from 'http';
 import jsonwebtoken, { JwtPayload, Secret } from 'jsonwebtoken';
 import { User, user } from '../db/schema/Schema';
-import { db } from '..';
+import { db, upload } from '..';
 import { eq } from 'drizzle-orm';
 
 
@@ -13,6 +13,7 @@ import { eq } from 'drizzle-orm';
 // });
 
 const IsUser = middleware(async (opts) => {
+    upload.single('file')
     let result: User[] = [];
     let token = ' ';
     // console.log(opts.ctx.req.headers. + "cookie") // undefined is being printed

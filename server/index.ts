@@ -15,9 +15,9 @@ import session from "express-session";
 const { Client } = pkg;
 import genFunc from 'connect-pg-simple';
 import passport from "passport";
-import { fail } from 'assert';
 import jwtMaker from './utils/func/jwtMaker';
 import('./middlewares/passport');
+import multer from 'multer';
 
 const PostgresqlStore = genFunc(session);
 const sessionStore = new PostgresqlStore({
@@ -25,7 +25,7 @@ const sessionStore = new PostgresqlStore({
     createTableIfMissing: true,
 });
 
-
+export const upload = multer({ dest: 'uploads/' });
 
 const client = new Client({
     host: "127.0.0.1",
@@ -47,6 +47,7 @@ export const db = drizzle(client, { schema });
 const app = express();
 
 
+app.use(express.urlencoded({ extended: true }))
 
 
 
@@ -104,6 +105,25 @@ io.on('connection', (socket: any) => {
         io.emit('chat', payload)
     });
 });
+
+//file upload code 
+
+app.post("/upload", upload.single("file"), async (req, res) => {
+    console.log('uploading file')
+    res.send(req.file?.path)
+    const fileData = {
+        path: req.file?.path,
+        originalName: req.file?.originalname,
+        sender_id: req.body.userId,
+        reciepent_id: req.body.reciepentId,
+    }
+
+}
+)
+
+app.post("download", (req, res) => {
+    res.download(req.body.file_path, req.body.file_name)
+})
 
 app.listen(process.env.EXPRESS_PORT, () => {
     console.log(`Example app listening on port ${process.env.EXPRESS_PORT}`);

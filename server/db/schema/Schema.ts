@@ -42,6 +42,15 @@ export const message = pgTable('message', {
     message: text('message'),
 });
 
+export const file = pgTable('file', {
+    file_id: text('file_id').primaryKey(),
+    file_path: text('file_path'),
+    file_name: text('file_name'),
+    sender_id: text('sender_id').references(() => user.id),
+    recipient_id: text('recipient_id').references(() => user.id),
+});
+
+
 
 
 export type User = InferModel<typeof user>;
@@ -55,3 +64,6 @@ export type InsertOrder = InferModel<typeof order, "insert">;
 
 export type Message = InferModel<typeof message>;
 export type InsertMessage = InferModel<typeof message, "insert">;
+
+export type File = InferModel<typeof file>;
+export type InsertFile = InferModel<typeof file, "insert">;

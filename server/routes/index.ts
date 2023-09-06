@@ -7,6 +7,7 @@ import { authRouter } from './auth';
 import { productRouter } from './product';
 import { orderRouter } from './order';
 import { messageRouter } from './message';
+import { fileRouter } from './file';
 import { string, z } from "zod";
 import { TRPCClientError } from "@trpc/client";
 
@@ -17,6 +18,7 @@ export const appRouter = router({
     product: productRouter,
     order: orderRouter,
     message: messageRouter,
+    file: fileRouter
 
 
 })
